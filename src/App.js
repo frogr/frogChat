@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import keys from './keys.json';
+import { ChatKit, ChatManager, TokenProvider } from '@pusher/chatkit';
 
 // keys from config (not uploaded to github)
 const instanceLocator = keys.instanceLocator;
 const secretKey = keys.secretKey;
+const tokenURL = keys.tokenURL;
 const username = keys.username;
-const roomId = keys.roomId;
+const roomId = Number(keys.roomId);
 
 const DUMMY_DATA = [
   {
@@ -43,6 +45,28 @@ class App extends Component {
       messages: DUMMY_DATA
     };
   }
+  componentDidMount() {
+    const chatManager = new ChatManager({
+      instanceLocator: instanceLocator,
+      userId: username,
+      tokenProvider: new TokenProvider({
+        url: tokenURL
+      })
+    });
+    chatManager.connect().then(currentUser => {
+      currentUser.subscribeToRoom({
+        roomId: roomId,
+        hooks: {
+          onNewMessage: message => {
+            this.setState({
+              messages: [...this.state.messages, message]
+            });
+          }
+        }
+      });
+    });
+  }
+
   render() {
     return (
       <div className="container">
