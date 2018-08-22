@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import keys from './keys.json';
 import { ChatKit, ChatManager, TokenProvider } from '@pusher/chatkit';
+import MessageList from './MessageList';
+import SendMessageForm from './SendMessageForm';
+import Title from './Title';
 
 // keys from config (not uploaded to github)
 const instanceLocator = keys.instanceLocator;
@@ -11,76 +14,13 @@ const tokenURL = keys.tokenURL;
 const username = keys.username;
 const roomId = Number(keys.roomId);
 
-const DUMMY_DATA = [
-  {
-    senderId: 'frog',
-    text: 'i hate frogs!'
-  },
-  {
-    senderId: 'messy',
-    text: 'i hate frogs more lol'
-  }
-];
-
-class MessageList extends Component {
-  render() {
-    return (
-      <ul className="messageList">
-        {this.props.messages.map(msg => {
-          return (
-            <li key={msg.id}>
-              <div>{msg.senderId}</div>
-              <div>{msg.text}</div>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-}
-class SendMessageForm extends Component {
-  constructor() {
-    super();
-    this.state = {
-      message: ''
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleChange(e) {
-    this.setState({
-      message: e.target.value
-    });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.sendMessage(this.state.message);
-    this.setState({
-      message: ''
-    });
-  }
-  render() {
-    return (
-      <form className="sendMessageForm">
-        <input
-          onChange={this.handleChange}
-          value={this.state.message}
-          placeholder="type your message here"
-          type="text"
-        />
-      </form>
-    );
-  }
-}
-function Title() {
-  return <p className="title">frogChat</p>;
-}
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      messages: DUMMY_DATA
+      messages: []
     };
+    this.sendMessage = this.sendMessage.bind(this);
   }
   componentDidMount() {
     const chatManager = new ChatManager({
@@ -106,7 +46,7 @@ class App extends Component {
   }
   sendMessage(text) {
     this.currentUser.sendMessage({
-      text: text,
+      text,
       roomId: roomId
     });
   }
@@ -114,7 +54,6 @@ class App extends Component {
     return (
       <div className="container">
         <Title />
-        {/* <h1>{username}</h1> */}
         <MessageList messages={this.state.messages} />
         <SendMessageForm sendMessage={this.sendMessage} />
       </div>
