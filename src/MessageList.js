@@ -6,8 +6,9 @@ class MessageList extends Component {
         {this.props.messages.map(msg => {
           return (
             <li key={msg.id}>
-              <div>{msg.senderId}</div>
-              <div>{msg.text}</div>
+              <span className="senderId">{msg.senderId}</span>
+              :
+              <span className="msgText"> {msg.text}</span>
             </li>
           );
         })}
