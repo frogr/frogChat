@@ -1,0 +1,9 @@
+{
+  "instanceLocator": "v1:us1:39844a84-6e07-4e27-844c-1fcc4914fc4e",
+  "secretKey":
+    "6d4cc53-5915-4b18-be73-2e6ec2ce35fb:NLzqk6y2zLmizb526Xm5l2z17gp6sJBPdJrTUIS301o=",
+  "tokenURL":
+    "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/39844a84-6e07-4e27-844c-1fcc4914fc4e/token",
+  "roomId": "14417888",
+  "username": "frog"
+}
