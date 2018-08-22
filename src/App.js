@@ -14,7 +14,7 @@ const tokenURL = keys.tokenURL;
 const username = keys.username;
 const roomId = Number(keys.roomId);
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -22,6 +22,7 @@ class App extends Component {
     };
     this.sendMessage = this.sendMessage.bind(this);
   }
+
   componentDidMount() {
     const chatManager = new ChatManager({
       instanceLocator: instanceLocator,
@@ -32,7 +33,7 @@ class App extends Component {
     });
     chatManager.connect().then(currentUser => {
       this.currentUser = currentUser;
-      currentUser.subscribeToRoom({
+      this.currentUser.subscribeToRoom({
         roomId: roomId,
         hooks: {
           onNewMessage: message => {
@@ -50,11 +51,15 @@ class App extends Component {
       roomId: roomId
     });
   }
+
   render() {
     return (
-      <div className="container">
+      <div className="app">
         <Title />
-        <MessageList messages={this.state.messages} />
+        <MessageList
+          roomId={this.state.roomId}
+          messages={this.state.messages}
+        />
         <SendMessageForm sendMessage={this.sendMessage} />
       </div>
     );
