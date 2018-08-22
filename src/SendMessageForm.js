@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { animateScroll } from 'react-scroll';
 class SendMessageForm extends Component {
   constructor() {
     super();
@@ -8,7 +9,11 @@ class SendMessageForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: 'messages'
+    });
+  }
   handleChange(e) {
     this.setState({
       message: e.target.value
@@ -18,9 +23,13 @@ class SendMessageForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.sendMessage(this.state.message);
-    this.setState({
-      message: ''
-    });
+    this.setState(
+      {
+        message: ''
+      },
+      this.scrollToBottom
+    );
+    this.props.StayScrolled;
   }
   render() {
     return (

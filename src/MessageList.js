@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+
 class MessageList extends Component {
   render() {
     return (
-      <ul className="messageList">
+      <ul className="messageList" id="messages">
         {this.props.messages.map(msg => {
           return (
             <li key={msg.id}>

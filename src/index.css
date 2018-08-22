@@ -10,6 +10,10 @@ body {
 li {
   list-style: none;
 }
+li:last-child {
+  position: sticky;
+  bottom: 0;
+}
 .senderId {
   font-weight: 700;
 }
@@ -48,17 +52,9 @@ input {
 }
 
 .messageList {
-  height: 200px;
+  height: 375px;
   overflow: auto;
 }
-
-.send-message-form {
-  background: var(--send-message-form);
-  display: flex;
-  box-sizing: border-box;
-  height: 60px;
-}
-
 .send-message-form input {
   width: 50%;
   padding: 15px 10px;
@@ -67,12 +63,4 @@ input {
   font-weight: 200;
   font-size: 16px;
   border: solid black 2px;
-}
-
-.send-message-form input:focus {
-  outline-width: 0;
-}
-
-.send-message-form input::placeholder {
-  color: black;
 }
