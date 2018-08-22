@@ -6,6 +6,7 @@ import { ChatKit, ChatManager, TokenProvider } from '@pusher/chatkit';
 import MessageList from './MessageList';
 import SendMessageForm from './SendMessageForm';
 import Title from './Title';
+import { animateScroll } from 'react-scroll';
 
 // keys from config (not uploaded to github)
 const instanceLocator = keys.instanceLocator;
@@ -37,9 +38,12 @@ class App extends React.Component {
         roomId: roomId,
         hooks: {
           onNewMessage: message => {
-            this.setState({
-              messages: [...this.state.messages, message]
-            });
+            this.setState(
+              {
+                messages: [...this.state.messages, message]
+              },
+              this.scrollToBottom
+            );
           }
         }
       });
@@ -51,7 +55,11 @@ class App extends React.Component {
       roomId: roomId
     });
   }
-
+  scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: 'messages'
+    });
+  }
   render() {
     return (
       <div className="app">

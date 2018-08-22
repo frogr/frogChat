@@ -29,7 +29,6 @@ class SendMessageForm extends Component {
       },
       this.scrollToBottom
     );
-    this.props.StayScrolled;
   }
   render() {
     return (

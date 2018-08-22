@@ -52,7 +52,7 @@ input {
 }
 
 .messageList {
-  height: 375px;
+  height: 400px;
   overflow: auto;
 }
 .send-message-form input {
