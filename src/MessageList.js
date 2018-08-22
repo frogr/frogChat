@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-
+const names = [
+  'frog',
+  'bullfrog',
+  'toad',
+  'salamander',
+  'lizard',
+  'gecko',
+  'chameleon',
+  'tadpole',
+  'alligator',
+  'newt'
+];
 class MessageList extends Component {
   render() {
     return (
