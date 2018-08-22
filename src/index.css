@@ -10,10 +10,7 @@ body {
 li {
   list-style: none;
 }
-li:last-child {
-  position: sticky;
-  bottom: 0;
-}
+
 .senderId {
   font-weight: 700;
 }
