@@ -38,6 +38,43 @@ class MessageList extends Component {
     );
   }
 }
+class SendMessageForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      message: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      message: e.target.value
+    });
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.sendMessage(this.state.message);
+    this.setState({
+      message: ''
+    });
+  }
+  render() {
+    return (
+      <form className="sendMessageForm">
+        <input
+          onChange={this.handleChange}
+          value={this.state.message}
+          placeholder="type your message here"
+          type="text"
+        />
+      </form>
+    );
+  }
+}
+function Title() {
+  return <p className="title">frogChat</p>;
+}
 class App extends Component {
   constructor() {
     super();
@@ -54,6 +91,7 @@ class App extends Component {
       })
     });
     chatManager.connect().then(currentUser => {
+      this.currentUser = currentUser;
       currentUser.subscribeToRoom({
         roomId: roomId,
         hooks: {
@@ -66,14 +104,19 @@ class App extends Component {
       });
     });
   }
-
+  sendMessage(text) {
+    this.currentUser.sendMessage({
+      text: text,
+      roomId: roomId
+    });
+  }
   render() {
     return (
       <div className="container">
-        {/* <Title /> */}
-        <h1>{username}</h1>
+        <Title />
+        {/* <h1>{username}</h1> */}
         <MessageList messages={this.state.messages} />
-        {/* <SendMessageForm /> */}
+        <SendMessageForm sendMessage={this.sendMessage} />
       </div>
     );
   }
